@@ -1,0 +1,74 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<project name="QA_Genie_Framework" default="run" basedir=".">
+ <property name="src" value=""/>
+ <property name="driver" value="testDriver"/>
+ <property name="class.dir" value="bin"/>
+ <property name="libs.dir" value="libs"/>
+ <property name="test-output.dir" value="test-output"/>
+	
+ <!-- Begin Global Properties To Be Accessed From Within Java -->
+  <property name="game.platform" value="staging" />
+  <property name="browser.type" value="Firefox" />
+  <property name="proxy.server" value="false" />
+ <!-- End Global Properties -->
+
+ <!-- Define which test group to run, default value should be "regression" -->
+	<property name="test.group" value="regression" />
+ <!-- End Global Properties -->
+	
+ <path id="compile.boot.path">
+	<fileset dir="${libs.dir}">
+		<include name="*/*.jar"/>
+	</fileset>
+    <pathelement path="${basedir}\${class.dir}"/>
+ </path>
+
+
+ <target name="run">
+   <antcall target="clean_bin_folder"/>
+   <antcall target="clean_html_report_folder"/>
+   <antcall target="compileDriver"/>
+   <antcall target="compile"/>
+   <antcall target="runTests"/>
+ </target> 
+
+  <target name="clean_bin_folder">
+	<delete dir="${class.dir}"/>
+	<mkdir dir="${class.dir}"/>	
+  </target>
+
+  <target name="clean_html_report_folder">
+	<delete dir="${test-output.dir}/html"/>
+	<mkdir dir="${test-output.dir}/html"/>	
+  </target>
+  
+ <!-- compile java code-->
+  <target name="compile">
+	<echo> Compiling... </echo>
+	<javac debug='true' srcdir="${src}" destdir="${class.dir}" classpathref="compile.boot.path"/>
+  </target>
+
+  <target name="compileDriver">
+	<echo> Compiling... </echo>
+	<javac debug='true' srcdir="${driver}" destdir="${class.dir}" classpathref="compile.boot.path"/>
+  </target>
+
+
+  <!-- Runs the file and generates Reportng report -->
+  <target name="runTests" description="Running tests" >
+      <echo>Running Tests...</echo>
+      <taskdef resource="testngtasks" classpathref="compile.boot.path"/>
+      <testng outputDir="${test-output.dir}"
+              groups="${test.group}"
+              haltonfailure="true"
+              useDefaultListeners="false"
+              listeners="org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.XYTestNgHtmlReport, org.testng.reporters.JUnitXMLReporter, org.testng.reporters.XMLReporter"
+              classpathref="compile.boot.path">
+              <sysproperty key="game.platform" value="${game.platform}" />
+              <sysproperty key="browser.type" value="${browser.type}" />
+              <sysproperty key="proxy.server" value="${proxy.server}" />
+              <classfileset dir="${class.dir}/com/kabam/${src}" includes="**/*.class" />
+      </testng>
+  </target>
+  
+</project>
