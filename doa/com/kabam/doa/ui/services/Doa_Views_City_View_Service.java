@@ -58,9 +58,4 @@ public class Doa_Views_City_View_Service extends Doa_Service_BaseFixture {
 		click(city_view_dragons_keep);
 	}
 
-	public void click_slot_on_city_view_by_slot_index(int index) {
-		String capital_city_view_class = "com.wonderhill.castlemania.view.components.core::CapitalCityView";
-		click_by_index_1(capital_city_view_class, index);
-	}
-
 }

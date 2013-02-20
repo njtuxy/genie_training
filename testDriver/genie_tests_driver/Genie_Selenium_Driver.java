@@ -2,19 +2,13 @@ package genie_tests_driver;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.Arrays;
 
-import org.browsermob.proxy.ProxyServer;
-import org.browsermob.core.har.Har;
-
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -22,19 +16,20 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchFrameException;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.adobe.genie.executor.Genie;
 import com.adobe.genie.executor.GenieLocatorInfo;
@@ -50,7 +45,7 @@ import com.adobe.genie.executor.uiEvents.UIKeyBoard;
 import com.adobe.genie.executor.uiEvents.UILocal;
 import com.adobe.genie.genieCom.SWFApp;
 
-public class Genie_Selenium_Driver extends Account_Creation{
+public class Genie_Selenium_Driver extends Account_Creation {
 
 	// properties file property
 	public static Properties testRunTimeProperties = null;
@@ -63,7 +58,6 @@ public class Genie_Selenium_Driver extends Account_Creation{
 	public static UIGenieID uiGenieID = null;
 
 	// Selenium properties
-	public static ProxyServer server = null;
 	public static Proxy proxy = null;
 	public static WebDriver browser = null;
 	public static Actions action = null;
@@ -76,12 +70,11 @@ public class Genie_Selenium_Driver extends Account_Creation{
 	// Genie properties
 	public static int flashAreaStartX;
 	public static int flashAreaStartY;
-	
-	//For accessibility tets
+
+	// For accessibility tets
 	public static String game_genie_id = null;
 
 	protected static String gameURL;
-	
 
 	public Genie_Selenium_Driver(String testRunTimePropertiesFilePath) {
 		// Load test runtine properties file and keep one instance
@@ -125,63 +118,13 @@ public class Genie_Selenium_Driver extends Account_Creation{
 		if (uiGenieID == null) {
 			uiGenieID = new UIGenieID(swfGameApp);
 			uiGenieID.setFlashAreaStartCoordinates(flashAreaStartX, flashAreaStartY);
-		}		
-		
+		}
+
 		return true;
 	}
 
 	public boolean proxy_toggled() {
 		return Boolean.parseBoolean(System.getProperty("proxy.server").toLowerCase());
-	}
-
-	// Method to start proxy server
-	public void start_proxy_server() {
-		// start the proxy
-		server = new ProxyServer(9090);
-		try {
-			server.start();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-
-		// get the Selenium proxy object
-		try {
-			proxy = server.seleniumProxy();
-		} catch(java.net.UnknownHostException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void stop_proxy_server() {
-		if(server != null) {
-			try {
-				server.stop();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public Har create_har(String label) {
-		// // create a new HAR with a label
-		return server.newHar(label);
-	}
-
-	public Har get_har() {
-		return get_har("Selenium_test");
-	}
-
-	public Har get_har(String file) {
-		// // get the HAR data
-		Har har = server.getHar();
-		String strFilePath = "test-output/har/" + file + ".har";
-		try {
-			FileOutputStream fos = new FileOutputStream(strFilePath);
-			har.writeTo(fos);
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		return har;
 	}
 
 	// Method to open browser and maximize the window for testing by SELENIUM
@@ -264,12 +207,12 @@ public class Genie_Selenium_Driver extends Account_Creation{
 		browser.findElement(By.id("header-login-submit")).click();
 		waitForAjaxToBeFinished();
 	}
-	
-	public void loginKabamFromMainPage(String email, String password){
+
+	public void loginKabamFromMainPage(String email, String password) {
 		browser.findElement(By.id("login-email-modal")).sendKeys(email);
 		browser.findElement(By.id("login-password-modal")).sendKeys(password);
 		browser.findElement(By.id("login-submit-modal")).click();
-				
+
 	}
 
 	public void loginFB(String email, String password) {
@@ -396,7 +339,7 @@ public class Genie_Selenium_Driver extends Account_Creation{
 		}
 		// read and set the Selenium properties
 		browserTypeDefinedInConfigFile = testRunTimeProperties.getProperty("Browser");
-		if(browserTypeDefinedInConfigFile == null) {
+		if (browserTypeDefinedInConfigFile == null) {
 			browserTypeDefinedInConfigFile = System.getProperty("browser.type");
 		}
 		siteDomain = testRunTimeProperties.getProperty("SiteDomain");
@@ -406,14 +349,14 @@ public class Genie_Selenium_Driver extends Account_Creation{
 		testPlayerName = testRunTimeProperties.getProperty("Test_Player_Name");
 
 		// read and set the Genie properties
-		flashAreaStartX = Integer.parseInt(testRunTimeProperties.getProperty("FlashAreaStartX"));
-		flashAreaStartY = Integer.parseInt(testRunTimeProperties.getProperty("FlashAreaStartY"));
+		// flashAreaStartX = Integer.parseInt(testRunTimeProperties.getProperty("FlashAreaStartX"));
+		// flashAreaStartY = Integer.parseInt(testRunTimeProperties.getProperty("FlashAreaStartY"));
 		gameName = testRunTimeProperties.getProperty("GameName");
-		
-		if (testRunTimeProperties.getProperty("game_loadded_genie_id") != null){
-			game_genie_id = testRunTimeProperties.getProperty("game_loadded_genie_id");	
-		}		
-		
+
+		if (testRunTimeProperties.getProperty("game_loadded_genie_id") != null) {
+			game_genie_id = testRunTimeProperties.getProperty("game_loadded_genie_id");
+		}
+
 	}
 
 	// load uiObjects.properties file

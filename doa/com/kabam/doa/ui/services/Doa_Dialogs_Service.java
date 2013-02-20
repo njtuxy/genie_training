@@ -1,7 +1,5 @@
 package com.kabam.doa.ui.services;
 
-import com.adobe.genie.executor.exceptions.StepFailedException;
-import com.adobe.genie.executor.exceptions.StepTimedOutException;
 
 public class Doa_Dialogs_Service extends Doa_Service_BaseFixture {
 
@@ -89,36 +87,36 @@ public class Doa_Dialogs_Service extends Doa_Service_BaseFixture {
 		click(click_disintegrate_button_on_confirm_dialog);
 	}
 
-	public void close_choose_building_dialog() {
-		String chooseBuildingDialogClassName = "com.wonderhill.castlemania.view.dialog::ChooseBuildingDialog";
-		click_by_index_1(chooseBuildingDialogClassName, 2);
-	}
-
-	// The index of building type start from 3
-	public void choose_building_type_by_index(int index) {
-		// String bulding_selector = "com.wonderhill.castlemania.view.dialog::BuildingSelector";
-		String chooseBuildingDialogClassName = "com.wonderhill.castlemania.view.dialog::ChooseBuildingDialog";
-		try {
-			get_children_by_index(chooseBuildingDialogClassName, 1).getChildAt(index).getChildAt(3).click();
-		} catch (StepFailedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (StepTimedOutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public void close_upgrade_building_dialog() {
-		String upgrade_building_dialog_class = "com.wonderhill.castlemania.view.dialog::UpgradeBuildingDialog";
-		click_by_index_1(upgrade_building_dialog_class, 2);
-	}
-
-	public void click_build_button_on_upgrade_building_dialog() {
-		String upgrade_building_dialog_class = "com.wonderhill.castlemania.view.dialog::UpgradeBuildingDialog";
-		click_by_index_1(get_children_by_index(upgrade_building_dialog_class, 1), 6);
-	}
+	// public void close_choose_building_dialog() {
+	// String chooseBuildingDialogClassName = "com.wonderhill.castlemania.view.dialog::ChooseBuildingDialog";
+	// click_by_index_1(chooseBuildingDialogClassName, 2);
+	// }
+	//
+	// // The index of building type start from 3
+	// public void choose_building_type_by_index(int index) {
+	// // String bulding_selector = "com.wonderhill.castlemania.view.dialog::BuildingSelector";
+	// String chooseBuildingDialogClassName = "com.wonderhill.castlemania.view.dialog::ChooseBuildingDialog";
+	// try {
+	// get_children_by_index(chooseBuildingDialogClassName, 1).getChildAt(index).getChildAt(3).click();
+	// } catch (StepFailedException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (StepTimedOutException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	//
+	// }
+	//
+	// public void close_upgrade_building_dialog() {
+	// String upgrade_building_dialog_class = "com.wonderhill.castlemania.view.dialog::UpgradeBuildingDialog";
+	// click_by_index_1(upgrade_building_dialog_class, 2);
+	// }
+	//
+	// public void click_build_button_on_upgrade_building_dialog() {
+	// String upgrade_building_dialog_class = "com.wonderhill.castlemania.view.dialog::UpgradeBuildingDialog";
+	// click_by_index_1(get_children_by_index(upgrade_building_dialog_class, 1), 6);
+	// }
 
 	// public void click_item_on_choose_building_dialog_by_text(String text) {
 	//
@@ -135,20 +133,20 @@ public class Doa_Dialogs_Service extends Doa_Service_BaseFixture {
 	//
 	// }
 
-	public void select_homes_to_build() {
-		choose_building_type_by_index(3);
-	}
-
-	public void select_garrison_to_build() {
-		choose_building_type_by_index(4);
-	}
-
-	public void click_build_button() {
-		click_build_button_on_upgrade_building_dialog();
-	}
-
-	public void click_speed_up_button() {
-		click(click_speed_up_button);
-	}
+	// public void select_homes_to_build() {
+	// choose_building_type_by_index(3);
+	// }
+	//
+	// public void select_garrison_to_build() {
+	// choose_building_type_by_index(4);
+	// }
+	//
+	// public void click_build_button() {
+	// click_build_button_on_upgrade_building_dialog();
+	// }
+	//
+	// public void click_speed_up_button() {
+	// click(click_speed_up_button);
+	// }
 
 }

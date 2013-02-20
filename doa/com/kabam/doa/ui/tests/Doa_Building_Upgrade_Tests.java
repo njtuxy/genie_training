@@ -5,7 +5,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Test(dependsOnGroups = { "Doa_Building_Construction" }, groups = { "Doa_Building_Upgrade" , "regression"})
+
+
 public class Doa_Building_Upgrade_Tests extends Doa_Test_BaseFixture {
+
 	@BeforeMethod
 	public void test_level_setup() {
 

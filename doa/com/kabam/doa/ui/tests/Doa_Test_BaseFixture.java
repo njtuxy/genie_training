@@ -36,7 +36,7 @@ public abstract class Doa_Test_BaseFixture {
 	public static Doa_Shop_Service doa_shop_service = new Doa_Shop_Service();
 	public static Doa_Tooltip_Service doa_tooltip_service = new Doa_Tooltip_Service();
 	public static Doa_Icon_Bar_Service doa_icon_bar_servcie = new Doa_Icon_Bar_Service();
-	public static Doa_Account_Service doa_account_service = new Doa_Account_Service();
+	public static Doa_Common_Service doa_account_service = new Doa_Common_Service();
 	public static Doa_Marketing_Page_Service doa_marketing_page_service = new Doa_Marketing_Page_Service();
 	public static Doa_Facebook_Service doa_facebook_service = new Doa_Facebook_Service();
 	public static Doa_Kongregate_Service doa_kongregate_service = new Doa_Kongregate_Service();
