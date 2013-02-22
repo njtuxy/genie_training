@@ -13,6 +13,7 @@ public class Doa_Building_Upgrade_Tests extends Doa_Test_BaseFixture {
 	public void test_level_setup() {
 
 	}
+
 	
 	@AfterMethod
 	public void test_level_teardown() {
