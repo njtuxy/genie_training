@@ -9,8 +9,8 @@
 	<classpathentry kind="lib" path="libs/testNG/velocity-1.7-dep.jar"/>
 	<classpathentry kind="lib" path="libs/testNG/xyReportNG.jar"/>
 	<classpathentry kind="lib" path="libs/commons/commons-io-2.1.jar"/>
-	<classpathentry kind="lib" path="libs/selenium/selenium-server-standalone-2.28.0.jar"/>
 	<classpathentry kind="lib" path="libs/jedis/commons-pool-1.6.jar"/>
 	<classpathentry kind="lib" path="libs/jedis/jedis-2.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/selenium/selenium-server-standalone-2.30.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
